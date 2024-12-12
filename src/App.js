@@ -7,7 +7,7 @@ import { Toaster } from "react-hot-toast";
 
 const App = () => {
   return (
-    <div>
+    <div className="text-md md:text-lg lg:text-lg xl:text-lg">
       <Toaster />
       <Navbar />
       <Routes>

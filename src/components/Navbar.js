@@ -3,27 +3,22 @@ import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
-    <div className="sticky top-0 z-10" id="">
-      <nav className="bg-gray-800 py-4 ">
-        <div className="container mx-auto flex justify-between items-center">
-          <div className="text-lg font-bold text-white">Student Portal</div>
-          <div className="flex justify-end gap-x-10">
-            <Link
-              to="/uploadDetails"
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-            >
-              Upload Student Details
-            </Link>
-            <Link
-              to="/"
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-            >
-              Home
-            </Link>
-          </div>
-        </div>
-      </nav>
-    </div>
+    <nav className="px-8 md:px-12 lg:px-12 xl:px-12 grid grid-cols-2 w-full justify-between navbar fixed top-0 z-10 h-16 bg-blue-800">
+      <div className="part-1 flex text-white text-2xl items-center ">
+        <h1 className="font-semibold">Student Portal</h1>
+      </div>
+      <div className="flex items-center justify-end gap-4">
+        <Link
+          to="/uploadDetails"
+          className="text-white p-2 bg-blue-950 rounded-lg px-2 "
+        >
+          Add Student
+        </Link>
+        <Link to="/" className="text-white p-2 bg-blue-950 rounded-lg px-4">
+          Home
+        </Link>
+      </div>
+    </nav>
   );
 };
 

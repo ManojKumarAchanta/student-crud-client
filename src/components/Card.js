@@ -1,34 +1,119 @@
-import React from "react";
+import React, { useState } from "react";
+import { Pencil, Save } from "lucide-react";
 
-const Card = ({ student, onDelete }) => {
+const Card = ({ student, onEdit, onDelete }) => {
+  const [isEditing, setIsEditing] = useState(false);
+  const [editedStudent, setEditedStudent] = useState({ ...student });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setEditedStudent({ ...editedStudent, [name]: value });
+  };
+
+  const handleSave = (e) => {
+    e.preventDefault();
+    onEdit(student.regdNo, editedStudent); // Call onEdit with updated student details
+    setIsEditing(false);
+  };
   return (
-    <div className="cursor-pointer max-w-sm smooth-transition mx-auto bg-white rounded shadow-md p-4 relative">
+    <div className="border rounded-lg smooth-transition shadow-lg p-4 relative flex flex-col gap-4">
+      {/* Edit Icon */}
+
+      {!isEditing && (
+        <button
+          className="absolute top-2 right-12 text-blue-500 hover:text-blue-700"
+          onClick={() => setIsEditing(true)}
+        >
+          <Pencil size={22} />
+        </button>
+      )}
       <button
-        className="absolute top-2 right-2 text-red-500 hover:text-red-700"
         onClick={() => onDelete(student.regdNo)}
+        className="absolute top-1 right-2 text-red-500 hover:text-red-700"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="h-6 w-6"
-          fill="none"
           viewBox="0 0 24 24"
-          stroke="currentColor"
+          fill={"red"}
+          width={28}
+          height={28}
         >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-          />
+          <path d="M3 6h18v2H3V6zm2 3h14l-1.5 13H6.5L5 9zm6.5 3h-1v8h1v-8zm3 0h-1v8h1v-8zM9 4h6v1H9V4zm3-2c.55 0 1 .45 1 1h-2c0-.55.45-1 1-1z" />
         </svg>
       </button>
-      <h2 className="text-lg font-bold mb-2">{student.name}</h2>
-      <p className="text-gray-600 mb-2">
-        Registration Number: {student.regdNo}
-      </p>
-      <p className="text-gray-600 mb-2">Mobile Number: {student.mobileNo}</p>
-      <p className="text-gray-600 mb-2">Email: {student.email}</p>
-      <p className="text-gray-600 mb-2">Department: {student.department}</p>
+      {/* Form for editing */}
+      {isEditing ? (
+        <form onSubmit={handleSave} className="space-y-2">
+          <div>
+            <label className="block text-sm font-medium">Name</label>
+            <input
+              type="text"
+              name="name"
+              value={editedStudent.name}
+              onChange={handleInputChange}
+              className="w-full border rounded px-2 py-1"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium">
+              Registration Number
+            </label>
+            <input
+              type="text"
+              name="regdNo"
+              contentEditable="false"
+              value={editedStudent.regdNo}
+              onChange={handleInputChange}
+              className="w-full border rounded px-2 py-1"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium">Email</label>
+            <input
+              type="email"
+              name="email"
+              value={editedStudent.email}
+              onChange={handleInputChange}
+              className="w-full border rounded px-2 py-1"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium">Mobile Number</label>
+            <input
+              type="text"
+              name="mobileNo"
+              value={editedStudent.mobileNo}
+              onChange={handleInputChange}
+              className="w-full border rounded px-2 py-1"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium">Department</label>
+            <input
+              type="text"
+              name="department"
+              value={editedStudent.department}
+              onChange={handleInputChange}
+              className="w-full border rounded px-2 py-1"
+            />
+          </div>
+          <button
+            type="submit"
+            className="bg-green-500 text-white py-1 px-4 rounded hover:bg-green-600"
+          >
+            <Save size={16} className="inline mr-2" /> Save
+          </button>
+        </form>
+      ) : (
+        // Display student details
+        <div className="flex flex-col gap-2 text-md md:text-lg lg:text-lg ">
+          <h2 className="text-xl font-semibold">{student.name}</h2>
+          <p className="text-sm"><span className="font-semibold">Registration Number</span>: {student.regdNo}</p>
+          <p className="text-sm"><span className="font-semibold">Email:</span> {student.email}</p>
+          <p className="text-sm"><span className="font-semibold">Mobile Number</span>: {student.mobileNo}</p>
+          <p className="text-sm"><span className="font-semibold">Department:</span> {student.department}</p>
+        </div>
+      )}
     </div>
   );
 };

@@ -22,12 +22,11 @@ const UploadDetails = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsLoading(true);
-    console.log("Form submitted:", formData);
     const submitData = async (data) => {
       try {
         setIsLoading(true);
-        const response = await axios.post(
-          "https://crud-server-4cuk.onrender.com/addstudent",
+        await axios.post(
+          "https://student-crud-server.onrender.com/addstudent",
           formData
         );
         toast.success("Details uploaded successfully");
@@ -44,20 +43,17 @@ const UploadDetails = () => {
   };
 
   return (
-    <>
+    <div className="relative top-20">
       {isLoading ? (
         <div className=" w-full absolute top-[790%] left-[50%]">
           <Mosaic
             color="#32cd32"
             size="medium"
-            text=""
-            textColor=""
-            className=""
           />
         </div>
       ) : (
         <div className="max-w-md mx-auto p-4 bg-white rounded shadow-md">
-          <h2 className="text-lg font-bold mb-4">Upload Student Details</h2>
+          <h2 className="text-lg font-bold mb-4">Registration Form</h2>
           <form onSubmit={handleSubmit} className="flex flex-col">
             <div className="mb-4">
               <label
@@ -71,6 +67,7 @@ const UploadDetails = () => {
                 id="regdNo"
                 name="regdNo"
                 value={formData.regdNo}
+                placeholder="Enter your Regdno"
                 pattern="\d{2}[a-zA-Z]\d{2}[a-zA-Z]\d{2}[a-zA-Z0-9]{2}"
                 onChange={handleChange}
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -90,6 +87,7 @@ const UploadDetails = () => {
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
+                placeholder="Enter your Name"
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 required
               />
@@ -108,6 +106,7 @@ const UploadDetails = () => {
                 value={formData.email}
                 onChange={handleChange}
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                placeholder="student@sasi.ac.in"
                 required
               />
             </div>
@@ -124,6 +123,7 @@ const UploadDetails = () => {
                 name="department"
                 value={formData.department}
                 onChange={handleChange}
+                placeholder="Enter your Department"
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 required
               />
@@ -140,6 +140,7 @@ const UploadDetails = () => {
                 name="mobileNo"
                 value={formData.address}
                 onChange={handleChange}
+                placeholder="Enter your mobile no"
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               />
             </div>
@@ -152,7 +153,7 @@ const UploadDetails = () => {
           </form>
         </div>
       )}
-    </>
+    </div>
   );
 };
 
